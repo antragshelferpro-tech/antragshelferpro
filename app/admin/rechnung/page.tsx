@@ -105,6 +105,7 @@ export default function RechnungGeneratorPage() {
       invoiceDate: t.toISOString().split('T')[0],
       dueDate: d.toISOString().split('T')[0],
       customerName: '', customerAddress: '', customerCity: '', customerEmail: '', notes: '',
+      paymentMethod: 'bank', iban: '', paypalEmail: '',
     })
     setItems([{ id: 1, description: '', quantity: 1, unitPrice: 0 }])
   }
