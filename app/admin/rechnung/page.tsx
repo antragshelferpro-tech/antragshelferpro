@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { useAdminAuth } from '../../../lib/useAdminAuth'
 
 interface LineItem {
   id: number
@@ -24,8 +23,27 @@ interface InvoiceData {
 }
 
 export default function RechnungGeneratorPage() {
-  const { password, setPassword, authed, authError, checking, login: authLogin, logout } = useAdminAuth()
-  const [loading, setLoading] = useState(false)
+  const [password, setPassword] = useState('')
+  const [authed, setAuthed]       = useState(false)
+  const [authError, setAuthError] = useState('')
+  const [checking, setChecking]   = useState(true)
+  const [loading, setLoading]     = useState(false)
+
+  // Restore session on mount
+  useEffect(() => {
+    const stored = sessionStorage.getItem('ahp_admin_pwd')
+    if (stored) {
+      fetch('/api/bookings/admin', { headers: { 'x-admin-password': stored } })
+        .then(r => {
+          if (r.ok) { setPassword(stored); setAuthed(true) }
+          else sessionStorage.removeItem('ahp_admin_pwd')
+          setChecking(false)
+        })
+        .catch(() => setChecking(false))
+    } else {
+      setChecking(false)
+    }
+  }, [])
 
   const today = new Date()
   const due   = new Date(today.getTime() + 14 * 86400000)
@@ -49,7 +67,11 @@ export default function RechnungGeneratorPage() {
   ])
 
   async function login() {
-    await authLogin(password)
+    setAuthError('')
+    const res = await fetch('/api/bookings/admin', { headers: { 'x-admin-password': password } })
+    if (res.status === 401) { setAuthError('Falsches Passwort.'); return }
+    sessionStorage.setItem('ahp_admin_pwd', password)
+    setAuthed(true)
   }
 
   const setD = (field: keyof InvoiceData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
