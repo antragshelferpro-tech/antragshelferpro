@@ -41,8 +41,11 @@ interface InvoiceForm {
 }
 
 export default function AdminPage() {
-  const { password, setPassword, authed, authError, checking, login: authLogin, logout } = useAdminAuth()
-  const [bookings, setBookings]             = useState<Booking[]>([])
+  const [password, setPassword]   = useState('')
+  const [authed, setAuthed]       = useState(false)
+  const [authError, setAuthError] = useState('')
+  const [checking, setChecking]   = useState(true)
+  const [bookings, setBookings]   = useState<Booking[]>([])
   const [loading, setLoading]               = useState(false)
   const [filter, setFilter]                 = useState<BookingStatus | 'alle'>('alle')
   const [search, setSearch]                 = useState('')
@@ -62,7 +65,22 @@ export default function AdminPage() {
     setLoading(false)
   }, [])
 
-  // Auto-load bookings when authed (e.g. restored from sessionStorage)
+  // Restore session on mount
+  useEffect(() => {
+    const stored = sessionStorage.getItem('ahp_admin_pwd')
+    if (stored) {
+      fetch('/api/bookings/admin', { headers: { 'x-admin-password': stored } })
+        .then(r => {
+          if (r.ok) { setPassword(stored); setAuthed(true) }
+          else sessionStorage.removeItem('ahp_admin_pwd')
+          setChecking(false)
+        })
+        .catch(() => setChecking(false))
+    } else {
+      setChecking(false)
+    }
+  }, [])
+
   useEffect(() => {
     if (authed && password && bookings.length === 0) {
       load(password)
@@ -77,13 +95,14 @@ export default function AdminPage() {
   }, [])
 
   async function login() {
-    const inputPwd = password
-    const ok = await authLogin(inputPwd)
-    if (!ok) return
-    const res = await fetch('/api/bookings/admin', { headers: { 'x-admin-password': inputPwd } })
+    setAuthError('')
+    const res = await fetch('/api/bookings/admin', { headers: { 'x-admin-password': password } })
+    if (res.status === 401) { setAuthError('Falsches Passwort.'); return }
+    sessionStorage.setItem('ahp_admin_pwd', password)
+    setAuthed(true)
     const data = await res.json()
     setBookings(Array.isArray(data) ? data : [])
-    loadMaintenance(inputPwd)
+    loadMaintenance(password)
   }
 
   async function toggleMaintenance() {
@@ -216,7 +235,7 @@ export default function AdminPage() {
           </div>
           <a href="/admin/rechnung" style={s.invoiceGenBtn}>🧾 Rechnungsgenerator</a>
           <button style={s.refreshBtn} onClick={() => load(password)}>🔄 Aktualisieren</button>
-          <button style={s.logoutBtn} onClick={() => { logout(); setBookings([]) }}>Logout</button>
+          <button style={s.logoutBtn} onClick={() => { sessionStorage.removeItem('ahp_admin_pwd'); setAuthed(false); setPassword(''); setBookings([]) }}>Logout</button>
         </div>
       </div>
 
