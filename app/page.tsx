@@ -1,7 +1,6 @@
 'use client'
 import { useState, useCallback, useEffect } from 'react'
 import { Booking, BookingStatus } from '../../lib/types'
-import { useAdminAuth } from '../../lib/useAdminAuth'
 
 const STATUS_COLORS: Record<BookingStatus, string> = {
   neu: '#3b82f6', bestätigt: '#10b981', abgeschlossen: '#6b7280', storniert: '#ef4444',
@@ -42,7 +41,6 @@ interface InvoiceForm {
 }
 
 export default function AdminPage() {
-  const { password, setPassword, authed, authError, checking, login: authLogin, logout } = useAdminAuth()
   const [bookings, setBookings]             = useState<Booking[]>([])
   const [loading, setLoading]               = useState(false)
   const [filter, setFilter]                 = useState<BookingStatus | 'alle'>('alle')
