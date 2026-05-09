@@ -1,5 +1,6 @@
 'use client'
 import BookingForm from '../components/BookingForm'
+import FinancingForm from '../components/FinancingForm'
 import { useState } from 'react'
 
 // ── Übersetzungen ──────────────────────────────────────────
@@ -53,6 +54,7 @@ const T = {
     secBuchenLabel: 'Jetzt buchen', secBuchenTitle: 'Ihren Termin sichern',
     secBuchenSub: 'Füllen Sie das Formular aus – wir melden uns innerhalb von 24 Stunden.',
     buchenList: ['Kostenlose Ersteinschätzung Ihres Anliegens','Flexibel: vor Ort, telefonisch oder per Video','Beratung auf Deutsch, Albanisch oder Englisch','Diskret und datenschutzkonform','Keine versteckten Kosten'],
+    secFinanzLabel: 'Finanzierungsanfrage', secFinanzTitle: 'Jetzt Finanzierung anfragen', secFinanzSub: 'Wir leiten Ihre Anfrage direkt und kostenlos an unseren Partner weiter – schnell, diskret und unverbindlich.',
     footerDesc: 'Ihr vertrauensvoller Partner für Anträge, Formulare, Übersetzungen und Versicherungsberatung in Wuppertal und bundesweit.',
     footerLeistungen: 'Leistungen', footerRechtliches: 'Rechtliches',
     footerLinks: ['Antragsstellung','Antragsprüfung','Übersetzungen','Versicherung','Anerkennung'],
@@ -130,6 +132,7 @@ const T = {
     secBuchenLabel: 'Rezervo tani', secBuchenTitle: 'Siguro takimin tënd',
     secBuchenSub: 'Plotësoni formularin – ne kontaktojmë brenda 24 orëve.',
     buchenList: ['Vlerësim fillestar falas i nevojës suaj','Fleksibël: fizikisht, telefonikisht ose me video','Këshillim në Gjermanisht, Shqip ose Anglisht','Diskret dhe konform GDPR','Pa kosto të fshehura'],
+    secFinanzLabel: 'Kërkesë financimi', secFinanzTitle: 'Kërkoni financim tani', secFinanzSub: 'Ne e dërgojmë kërkesën tuaj direkt dhe falas tek partneri ynë – shpejt, diskret dhe pa detyrime.',
     footerDesc: 'Partneri juaj i besuar për kërkesa, formularë, përkthime dhe këshilla sigurimi në Wuppertal dhe në të gjithë Gjermaninë.',
     footerLeistungen: 'Shërbime', footerRechtliches: 'Juridike',
     footerLinks: ['Plotësim kërkesash','Kontroll kërkesash','Përkthime','Sigurim','Njohja e kualifikimeve'],
@@ -207,6 +210,7 @@ const T = {
     secBuchenLabel: 'Book now', secBuchenTitle: 'Secure your appointment',
     secBuchenSub: 'Fill out the form – we will get back to you within 24 hours.',
     buchenList: ['Free initial assessment of your request','Flexible: in person, by phone or video','Consultation in German, Albanian or English','Discreet and GDPR-compliant','No hidden costs'],
+    secFinanzLabel: 'Financing request', secFinanzTitle: 'Apply for financing now', secFinanzSub: 'We forward your request directly and free of charge to our partner – fast, discreet and without obligation.',
     footerDesc: 'Your trusted partner for applications, forms, translations and insurance consulting in Wuppertal and nationwide.',
     footerLeistungen: 'Services', footerRechtliches: 'Legal',
     footerLinks: ['Application Assistance','Application Review','Translations','Insurance','Qualification Recognition'],
@@ -378,6 +382,17 @@ export default function Home() {
         .t-name { font-weight:700; font-size:0.88rem; color:var(--navy); }
         .t-sub { font-size:0.76rem; color:var(--text-light); }
 
+        /* FINANCING */
+        #finanzierung { background:var(--navy); }
+        #finanzierung h2.section-title { color:#fff; }
+        #finanzierung .section-sub { color:rgba(255,255,255,0.6); }
+        .financing-wrapper { display:grid; grid-template-columns:1fr 1.2fr; gap:48px; align-items:start; }
+        @media(max-width:768px){ .financing-wrapper { grid-template-columns:1fr; gap:32px; } }
+        .financing-info p { color:rgba(255,255,255,0.6); font-size:0.95rem; line-height:1.7; margin-bottom:20px; }
+        .financing-perks { list-style:none; display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+        .financing-perks li { display:flex; align-items:flex-start; gap:10px; font-size:0.9rem; color:rgba(255,255,255,0.7); line-height:1.55; }
+        .financing-perks li::before { content:'✓'; width:22px; height:22px; background:var(--gold); color:var(--navy); border-radius:50%; font-size:0.68rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+
         /* BOOKING */
         #buchen { background:var(--white); }
         .booking-wrapper { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
@@ -430,6 +445,7 @@ export default function Home() {
           <li><a href="#preise">{t.navPreise}</a></li>
           <li><a href="#ablauf">{t.navAblauf}</a></li>
           <li><a href="#bewertungen">{t.navBewertungen}</a></li>
+          <li><a href="#finanzierung">{lang === 'de' ? 'Finanzierung' : lang === 'sq' ? 'Financim' : 'Financing'}</a></li>
           <li>
             <div className="lang-switcher">
               {(['de','sq','en'] as Lang[]).map(l => (
@@ -458,6 +474,7 @@ export default function Home() {
         <a href="#preise" onClick={() => document.getElementById('mob')?.classList.remove('open')}>{t.navPreise}</a>
         <a href="#ablauf" onClick={() => document.getElementById('mob')?.classList.remove('open')}>{t.navAblauf}</a>
         <a href="#bewertungen" onClick={() => document.getElementById('mob')?.classList.remove('open')}>{t.navBewertungen}</a>
+        <a href="#finanzierung" onClick={() => document.getElementById('mob')?.classList.remove('open')}>{lang === 'de' ? 'Finanzierung' : lang === 'sq' ? 'Financim' : 'Financing'}</a>
         <a href="#buchen" className="gold" onClick={() => document.getElementById('mob')?.classList.remove('open')}>→ {t.navBuchen}</a>
       </div>
 
@@ -559,6 +576,36 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* FINANCING */}
+      <section id="finanzierung">
+        <div className="financing-wrapper">
+          <div className="financing-info">
+            <div className="section-label">{t.secFinanzLabel}</div>
+            <h2 className="section-title">{t.secFinanzTitle}</h2>
+            <p className="section-sub">{t.secFinanzSub}</p>
+            <ul className="financing-perks">
+              {(t as any).lang === 'sq' ? [
+                'Falas dhe pa detyrime',
+                'Dërgim i menjëhershëm tek partneri',
+                'Të gjitha llojet e financimit',
+                'Përgjigje brenda 24–48 orëve',
+              ] : (t as any).lang === 'en' ? [
+                'Free and without obligation',
+                'Immediate forwarding to partner',
+                'All types of financing',
+                'Response within 24–48 hours',
+              ] : [
+                'Kostenlos und unverbindlich',
+                'Sofortige Weiterleitung an den Partner',
+                'Alle Finanzierungsarten möglich',
+                'Rückmeldung innerhalb von 24–48 Stunden',
+              ].map((item: string) => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+          <FinancingForm lang={lang} />
         </div>
       </section>
 
