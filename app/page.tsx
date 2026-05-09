@@ -1,7 +1,7 @@
 'use client'
 import BookingForm from '../components/BookingForm'
 import FinancingForm from '../components/FinancingForm'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ── Übersetzungen ──────────────────────────────────────────
 const T = {
@@ -245,6 +245,16 @@ type Lang = keyof typeof T
 export default function Home() {
   const [modal, setModal] = useState<null | 'impressum' | 'datenschutz'>(null)
   const [lang, setLang] = useState<Lang>('de')
+
+  useEffect(() => {
+    const browserLang = navigator.language?.toLowerCase() || ''
+    if (browserLang.startsWith('sq') || browserLang.startsWith('sq-')) {
+      setLang('sq')
+    } else if (browserLang.startsWith('en') && !browserLang.startsWith('de')) {
+      setLang('en')
+    }
+    // Default: 'de' stays
+  }, [])
   const t = T[lang]
 
   return (
