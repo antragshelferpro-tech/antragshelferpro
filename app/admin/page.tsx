@@ -47,7 +47,7 @@ export default function AdminPage() {
   const [checking, setChecking]   = useState(true)
   const [bookings, setBookings]   = useState<Booking[]>([])
   const [loading, setLoading]               = useState(false)
-  const [filter, setFilter]                 = useState<BookingStatus | 'alle'>('alle')
+  const [filter, setFilter]                 = useState<BookingStatus | 'alle'>('neu')
   const [search, setSearch]                 = useState('')
   const [updating, setUpdating]             = useState<string | null>(null)
   const [maintenance, setMaintenance]       = useState(false)
