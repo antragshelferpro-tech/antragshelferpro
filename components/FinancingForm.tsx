@@ -39,6 +39,8 @@ const TEXT = {
     errorRequired: 'Bitte füllen Sie alle Pflichtfelder (*) aus.',
     kreditnehmerOptions: ['1 Person', '2 Personen'],
     disclaimer: 'Ihre Anfrage wird kostenlos und unverbindlich an unseren Partner weitergeleitet. AntragshelferPro übernimmt keine Haftung für die Kreditentscheidung.',
+    consentLabel: 'Ich bin damit einverstanden, dass meine Daten zur Bearbeitung meiner Finanzierungsanfrage an die Allianz Versicherung Mentor Dzemaili Hauptvertretung (Monheim am Rhein) weitergeleitet werden. *',
+    errorConsent: 'Bitte stimmen Sie der Datenweitergabe zu.',
   },
   sq: {
     title: '🏦 Kërkesë financimi',
@@ -65,6 +67,8 @@ const TEXT = {
     errorRequired: 'Ju lutem plotësoni të gjitha fushat e detyrueshme (*).',
     kreditnehmerOptions: ['1 person', '2 persona'],
     disclaimer: 'Kërkesa juaj dërgohet falas dhe pa detyrime tek partneri ynë.',
+    consentLabel: 'Jam dakord që të dhënat e mia të dërgohen tek Allianz Versicherung Mentor Dzemaili (Monheim am Rhein) për përpunimin e kërkesës sime të financimit. *',
+    errorConsent: 'Ju lutem pranoni dërgimin e të dhënave.',
   },
   en: {
     title: '🏦 Financing Request',
@@ -91,6 +95,8 @@ const TEXT = {
     errorRequired: 'Please fill in all required fields (*).',
     kreditnehmerOptions: ['1 person', '2 persons'],
     disclaimer: 'Your request will be forwarded free of charge and without obligation to our partner.',
+    consentLabel: 'I agree that my data will be forwarded to Allianz Versicherung Mentor Dzemaili Hauptvertretung (Monheim am Rhein) for the processing of my financing request. *',
+    errorConsent: 'Please agree to the data transfer.',
   },
 }
 
@@ -110,6 +116,7 @@ export default function FinancingForm({ lang = 'de' }: { lang?: Lang }) {
   })
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [consent, setConsent] = useState(false)
 
   const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm(f => ({ ...f, [field]: e.target.value }))
@@ -117,6 +124,9 @@ export default function FinancingForm({ lang = 'de' }: { lang?: Lang }) {
   async function submit() {
     if (!form.vorname || !form.nachname || !form.email || !form.finanzierungsart || !form.kreditsumme || !form.laufzeit) {
       setErrorMsg(t.errorRequired); setState('error'); return
+    }
+    if (!consent) {
+      setErrorMsg(t.errorConsent); setState('error'); return
     }
     setState('loading'); setErrorMsg('')
     try {
@@ -128,6 +138,7 @@ export default function FinancingForm({ lang = 'de' }: { lang?: Lang }) {
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Fehler')
       setState('success')
+      setConsent(false)
       setForm({ vorname: '', nachname: '', email: '', telefon: '', finanzierungsart: '', kreditsumme: '', laufzeit: '', verwendungszweck: '', anzahlKreditnehmer: '', arbeitsverhältnis: '', beschaeftigtSeit: '', nettoEinkommen: '', arbeitgeber: '', nachricht: '', sprache: t.sprachen[0] })
     } catch (e: any) {
       setErrorMsg(e.message); setState('error')
@@ -255,6 +266,19 @@ export default function FinancingForm({ lang = 'de' }: { lang?: Lang }) {
             <select style={s.input} value={form.sprache} onChange={set('sprache')}>
               {t.sprachen.map(sp => <option key={sp}>{sp}</option>)}
             </select>
+          </div>
+
+          {/* Consent checkbox */}
+          <div style={{...s.group, marginBottom:8}}>
+            <label style={{display:'flex', alignItems:'flex-start', gap:10, cursor:'pointer'}}>
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={e => setConsent(e.target.checked)}
+                style={{marginTop:3, width:18, height:18, accentColor:'#0f1f3d', cursor:'pointer', flexShrink:0}}
+              />
+              <span style={{fontSize:'0.85rem', color:'#1a2540', lineHeight:1.55}}>{t.consentLabel}</span>
+            </label>
           </div>
 
           {/* Disclaimer */}
