@@ -244,6 +244,7 @@ type Lang = keyof typeof T
 
 export default function Home() {
   const [modal, setModal] = useState<null | 'impressum' | 'datenschutz'>(null)
+  const [showFinancing, setShowFinancing] = useState(false)
   const [lang, setLang] = useState<Lang>('de')
 
   useEffect(() => {
@@ -394,9 +395,28 @@ export default function Home() {
 
         /* FINANCING */
         #finanzierung { background:var(--navy); }
+        .financing-toggle {
+          display:inline-flex; align-items:center; gap:10px;
+          background:var(--gold); color:var(--navy);
+          padding:15px 32px; border-radius:12px; border:none; cursor:pointer;
+          font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:700;
+          transition:all .2s; margin-top:8px;
+        }
+        .financing-toggle:hover { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,0.4); }
+        .financing-toggle .arrow { transition:transform .3s; display:inline-block; }
+        .financing-toggle.open .arrow { transform:rotate(180deg); }
+        .financing-collapse {
+          max-height:0; overflow:hidden;
+          transition:max-height .5s ease, opacity .3s ease;
+          opacity:0;
+        }
+        .financing-collapse.open {
+          max-height:2000px;
+          opacity:1;
+        }
         #finanzierung h2.section-title { color:#fff; }
         #finanzierung .section-sub { color:rgba(255,255,255,0.6); }
-        .financing-wrapper { display:grid; grid-template-columns:1fr 1.2fr; gap:48px; align-items:start; }
+        .financing-wrapper { display:grid; grid-template-columns:1fr 1.2fr; gap:48px; align-items:start; flex-wrap:wrap; }
         @media(max-width:768px){ .financing-wrapper { grid-template-columns:1fr; gap:32px; } }
         .financing-info p { color:rgba(255,255,255,0.6); font-size:0.95rem; line-height:1.7; margin-bottom:20px; }
         .financing-perks { list-style:none; display:flex; flex-direction:column; gap:12px; margin-top:20px; }
@@ -597,25 +617,27 @@ export default function Home() {
             <h2 className="section-title">{t.secFinanzTitle}</h2>
             <p className="section-sub">{t.secFinanzSub}</p>
             <ul className="financing-perks">
-              {(t as any).lang === 'sq' ? [
-                'Falas dhe pa detyrime',
-                'Dërgim i menjëhershëm tek partneri',
-                'Të gjitha llojet e financimit',
-                'Përgjigje brenda 24–48 orëve',
-              ] : (t as any).lang === 'en' ? [
-                'Free and without obligation',
-                'Immediate forwarding to partner',
-                'All types of financing',
-                'Response within 24–48 hours',
-              ] : [
-                'Kostenlos und unverbindlich',
-                'Sofortige Weiterleitung an den Partner',
-                'Alle Finanzierungsarten möglich',
-                'Rückmeldung innerhalb von 24–48 Stunden',
+              {[
+                lang==='sq' ? 'Falas dhe pa detyrime' : lang==='en' ? 'Free and without obligation' : 'Kostenlos und unverbindlich',
+                lang==='sq' ? 'Dërgim i menjëhershëm tek partneri' : lang==='en' ? 'Immediate forwarding to partner' : 'Sofortige Weiterleitung an den Partner',
+                lang==='sq' ? 'Të gjitha llojet e financimit' : lang==='en' ? 'All types of financing' : 'Alle Finanzierungsarten möglich',
+                lang==='sq' ? 'Përgjigje brenda 24–48 orëve' : lang==='en' ? 'Response within 24–48 hours' : 'Rückmeldung innerhalb von 24–48 Stunden',
               ].map((item: string) => <li key={item}>{item}</li>)}
             </ul>
+            <button
+              className={`financing-toggle ${showFinancing ? 'open' : ''}`}
+              onClick={() => setShowFinancing(v => !v)}
+            >
+              {showFinancing
+                ? (lang==='sq' ? 'Mbyll formularin' : lang==='en' ? 'Close form' : 'Formular schließen')
+                : (lang==='sq' ? '🏦 Financim kërkoni tani' : lang==='en' ? '🏦 Apply for financing' : '🏦 Jetzt Finanzierung anfragen')}
+              <span className="arrow">▼</span>
+            </button>
           </div>
-          <FinancingForm lang={lang} />
+          <div className={`financing-collapse ${showFinancing ? 'open' : ''}`}
+            style={{gridColumn:'1 / -1', marginTop: showFinancing ? 24 : 0}}>
+            <FinancingForm lang={lang} />
+          </div>
         </div>
       </section>
 
