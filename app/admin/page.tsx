@@ -181,6 +181,21 @@ export default function AdminPage() {
   const setIF = (field: keyof InvoiceForm) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setInvoiceForm(f => f ? { ...f, [field]: field === 'quantity' || field === 'unitPrice' ? Number(e.target.value) : e.target.value } : f)
 
+  async function deleteBooking(id: string) {
+    if (!window.confirm('Diese Buchung endgültig löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) return
+    const res = await fetch('/api/bookings/admin', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ id }),
+    })
+    if (res.ok) {
+      setBookings(bs => bs.filter(b => b.id !== id))
+    } else {
+      const data = await res.json()
+      alert(data.error || 'Fehler beim Löschen.')
+    }
+  }
+
   const filtered = bookings.filter(b => {
     const matchStatus = filter === 'alle' || b.status === filter
     const q = search.toLowerCase()
@@ -276,6 +291,12 @@ export default function AdminPage() {
                     {(b.status === 'bestätigt' || b.status === 'abgeschlossen') && (
                       <button style={s.invoiceBtn} onClick={() => openInvoice(b)}>
                         🧾 Rechnung erstellen
+                      </button>
+                    )}
+                    {/* Delete button – only for storniert */}
+                    {b.status === 'storniert' && (
+                      <button style={s.deleteBtn} onClick={() => deleteBooking(b.id)}>
+                        🗑️ Löschen
                       </button>
                     )}
                   </div>
@@ -454,6 +475,7 @@ const s: Record<string, React.CSSProperties> = {
   rowActions:   { display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' as const, marginTop:12 },
   badge:        { borderRadius:100, padding:'4px 12px', fontSize:'0.78rem', fontWeight:700, whiteSpace:'nowrap' as const },
   actionBtn:    { border:'1px solid', borderRadius:8, padding:'5px 12px', fontSize:'0.78rem', fontWeight:600, cursor:'pointer', fontFamily:"'DM Sans',sans-serif" },
+  deleteBtn:    { background:'#fef2f2', color:'#ef4444', border:'1px solid #fecaca', borderRadius:8, padding:'6px 14px', fontSize:'0.8rem', fontWeight:700, cursor:'pointer', fontFamily:"'DM Sans',sans-serif", whiteSpace:'nowrap' as const },
   invoiceBtn:   { background:'#0f1f3d', color:'#c9a84c', border:'none', borderRadius:8, padding:'6px 14px', fontSize:'0.8rem', fontWeight:700, cursor:'pointer', fontFamily:"'DM Sans',sans-serif", whiteSpace:'nowrap' as const },
   loading:      { padding:'48px', textAlign:'center' as const, color:'#6b7280' },
   empty:        { padding:'48px', textAlign:'center' as const, color:'#9ca3af', fontSize:'0.95rem' },
