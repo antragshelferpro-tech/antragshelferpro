@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
             </div>
           </div>
           <p style="text-align:center;color:#9ca3af;font-size:0.78rem;margin-top:16px;">
-            AntragshelferPro · Mentor Berisha · Wiesenstraße 7 · 42105 Wuppertal<br/>
+            AntragshelferPro · Mentor Berisha · Krischerstraße 6b · 40789 Monheim am Rhein<br/>
             antragshelferpro@gmail.com · +49 174 5156030
           </p>
         </div>

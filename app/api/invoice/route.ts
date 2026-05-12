@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
     x: m, y: height - 64,
     size: 10, font: fontRegular, color: WHITE,
   })
-  page.drawText('Wiesenstraße 7 · 42105 Wuppertal · antragshelferpro@gmail.com · +49 174 5156030', {
+  page.drawText('Krischerstraße 6b · 40789 Monheim am Rhein · antragshelferpro@gmail.com · +49 174 5156030', {
     x: m, y: height - 82,
     size: 8, font: fontRegular, color: rgb(0.7, 0.75, 0.85),
   })
@@ -204,7 +204,7 @@ export async function POST(req: NextRequest) {
 
   // ── FOOTER ──
   page.drawRectangle({ x: 0, y: 0, width, height: 60, color: NAVY })
-  page.drawText('AntragshelferPro · Mentor Berisha · Wiesenstraße 7 · 42105 Wuppertal',
+  page.drawText('AntragshelferPro · Mentor Berisha · Krischerstraße 6b · 40789 Monheim am Rhein',
     { x: m, y: 38, size: 8, font: fontRegular, color: rgb(0.6, 0.65, 0.75) })
   page.drawText('antragshelferpro@gmail.com · +49 174 5156030 · antragshelfer-pro.de',
     { x: m, y: 24, size: 8, font: fontRegular, color: rgb(0.6, 0.65, 0.75) })
