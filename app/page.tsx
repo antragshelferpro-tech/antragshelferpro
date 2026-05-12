@@ -133,7 +133,7 @@ const T = {
     secBuchenSub: 'Plotësoni formularin – ne kontaktojmë brenda 24 orëve.',
     buchenList: ['Vlerësim fillestar falas i nevojës suaj','Fleksibël: fizikisht, telefonikisht ose me video','Këshillim në Gjermanisht, Shqip ose Anglisht','Diskret dhe konform GDPR','Pa kosto të fshehura'],
     secFinanzLabel: 'Kërkesë financimi', secFinanzTitle: 'Kërkoni financim tani', secFinanzSub: 'Ne e dërgojmë kërkesën tuaj direkt dhe falas tek partneri ynë – shpejt, diskret dhe pa detyrime.',
-    footerDesc: 'Partneri juaj i besuar për kërkesa, formularë, përkthime dhe këshilla sigurimi në Wuppertal dhe në të gjithë Gjermaninë.',
+    footerDesc: 'Partneri juaj i besuar për kërkesa, formularë, përkthime, këshilla sigurimi dhe financime. Zyrë në Monheim am Rhein, aktiv në të gjithë Gjermaninë.',
     footerLeistungen: 'Shërbime', footerRechtliches: 'Juridike',
     footerLinks: ['Plotësim kërkesash','Kontroll kërkesash','Përkthime','Sigurim','Njohja e kualifikimeve'],
     impressum: 'Impressum', datenschutz: 'Mbrojtja e të dhënave', kontakt: 'Kontakt',
@@ -211,7 +211,7 @@ const T = {
     secBuchenSub: 'Fill out the form – we will get back to you within 24 hours.',
     buchenList: ['Free initial assessment of your request','Flexible: in person, by phone or video','Consultation in German, Albanian or English','Discreet and GDPR-compliant','No hidden costs'],
     secFinanzLabel: 'Financing request', secFinanzTitle: 'Apply for financing now', secFinanzSub: 'We forward your request directly and free of charge to our partner – fast, discreet and without obligation.',
-    footerDesc: 'Your trusted partner for applications, forms, translations and insurance consulting in Wuppertal and nationwide.',
+    footerDesc: 'Your trusted partner for applications, forms, translations, insurance consulting and financing. Office in Monheim am Rhein, nationwide.',
     footerLeistungen: 'Services', footerRechtliches: 'Legal',
     footerLinks: ['Application Assistance','Application Review','Translations','Insurance','Qualification Recognition'],
     impressum: 'Legal Notice', datenschutz: 'Privacy Policy', kontakt: 'Contact',
@@ -695,11 +695,11 @@ export default function Home() {
             <button className="modal-close" onClick={() => setModal(null)}>✕</button>
             <h2>{t.impTitle}</h2>
             <h3>{t.impAngaben}</h3>
-            <p>Mentor Berisha<br/>Wiesenstraße 7<br/>42105 Wuppertal<br/><span style={{fontSize:'0.82rem',color:'#9ca3af',fontStyle:'italic'}}>{t.impAdresseHinweis}</span></p>
+            <p>Mentor Berisha<br/>Krischerstraße 6b<br/>40789 Monheim am Rhein<br/><span style={{fontSize:'0.82rem',color:'#9ca3af',fontStyle:'italic'}}>{t.impAdresseHinweis}</span></p>
             <h3>{t.impKontakt}</h3>
             <p>Tel: <a href="tel:+4917451560330">+49 174 5156030</a><br/>E-Mail: <a href="mailto:antragshelferpro@gmail.com">antragshelferpro@gmail.com</a></p>
             <h3>{t.impVerantwortlich}</h3>
-            <p>Mentor Berisha · Wiesenstraße 7 · 42105 Wuppertal</p>
+            <p>Mentor Berisha · Krischerstraße 6b · 40789 Monheim am Rhein</p>
             <h3>{t.impHaftung}</h3>
             <p>{t.impHaftungText}</p>
             <h3>{t.impHinweis}</h3>
