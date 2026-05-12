@@ -55,11 +55,11 @@ const T = {
     secBuchenSub: 'Füllen Sie das Formular aus – wir melden uns innerhalb von 24 Stunden.',
     buchenList: ['Kostenlose Ersteinschätzung Ihres Anliegens','Flexibel: vor Ort, telefonisch oder per Video','Beratung auf Deutsch, Albanisch oder Englisch','Diskret und datenschutzkonform','Keine versteckten Kosten'],
     secFinanzLabel: 'Finanzierungsanfrage', secFinanzTitle: 'Jetzt Finanzierung anfragen', secFinanzSub: 'Wir leiten Ihre Anfrage direkt und kostenlos an unseren Partner weiter – schnell, diskret und unverbindlich.',
-    footerDesc: 'Ihr vertrauensvoller Partner für Anträge, Formulare, Übersetzungen und Versicherungsberatung in Wuppertal und bundesweit.',
+    footerDesc: 'Ihr vertrauensvoller Partner für Anträge, Formulare, Übersetzungen, Versicherungsberatung und Finanzierungen. Büro in Monheim am Rhein, bundesweit tätig.',
     footerLeistungen: 'Leistungen', footerRechtliches: 'Rechtliches',
     footerLinks: ['Antragsstellung','Antragsprüfung','Übersetzungen','Versicherung','Anerkennung'],
     impressum: 'Impressum', datenschutz: 'Datenschutz', kontakt: 'Kontakt',
-    copyright: '© 2026 AntragshelferPro – Mentor Berisha, Wuppertal. Alle Rechte vorbehalten.',
+    copyright: '© 2026 AntragshelferPro – Mentor Berisha, Monheim am Rhein. Alle Rechte vorbehalten.',
     floatingCta: '📅 Jetzt buchen',
     empfohlen: 'Empfohlen',
     impTitle: 'Impressum',
@@ -70,7 +70,7 @@ const T = {
     impHaftungText: 'Die Inhalte dieser Webseite wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.',
     impHinweis: 'Hinweis zur Beratung',
     impHinweisText: 'Die auf dieser Webseite angebotenen Leistungen stellen keine Rechtsberatung im Sinne des Rechtsdienstleistungsgesetzes (RDG) dar.',
-    impAdresseHinweis: 'Hinweis: Dies ist die Meldeadresse. Es handelt sich nicht um eine Geschäftsadresse – Besuche sind dort nicht möglich. Bitte kontaktieren Sie uns ausschließlich per Telefon, WhatsApp oder E-Mail.',
+    impAdresseHinweis: 'Hinweis: Dies ist die Büroadresse der Allianz Versicherung Mentor Dzemaili. Besuche nur für Finanzierungs- und Versicherungsanfragen nach vorheriger Terminvereinbarung. Ansprechpartner: Mentor Berisha. Bitte kontaktieren Sie uns vorab per Telefon, WhatsApp oder E-Mail.',
     dsTitle: 'Datenschutzerklärung',
     ds1: '1. Verantwortlicher', ds2: '2. Erhebung personenbezogener Daten', ds3: '3. Datenspeicherung & Löschung',
     ds4: '4. Kontaktformular & E-Mail-Kommunikation', ds5: '5. Ihre Rechte', ds6: '6. Beschwerderecht', ds7: '7. Cookies',
@@ -137,7 +137,7 @@ const T = {
     footerLeistungen: 'Shërbime', footerRechtliches: 'Juridike',
     footerLinks: ['Plotësim kërkesash','Kontroll kërkesash','Përkthime','Sigurim','Njohja e kualifikimeve'],
     impressum: 'Impressum', datenschutz: 'Mbrojtja e të dhënave', kontakt: 'Kontakt',
-    copyright: '© 2026 AntragshelferPro – Mentor Berisha, Wuppertal. Të gjitha të drejtat të rezervuara.',
+    copyright: '© 2026 AntragshelferPro – Mentor Berisha, Monheim am Rhein. Të gjitha të drejtat të rezervuara.',
     floatingCta: '📅 Rezervo tani',
     empfohlen: 'Rekomanduar',
     impTitle: 'Impressum',
@@ -148,7 +148,7 @@ const T = {
     impHaftungText: 'Përmbajtja e kësaj faqeje interneti është krijuar me kujdes të madh. Megjithatë, nuk mund të garantohet saktësia, plotësia dhe aktualiteti i përmbajtjes.',
     impHinweis: 'Shënim mbi këshillimin',
     impHinweisText: 'Shërbimet e ofruara në këtë faqe nuk përbëjnë këshillim juridik në kuptimin e RDG.',
-    impAdresseHinweis: 'Shënim: Kjo është adresa e regjistrimit. Nuk është adresë biznesi – vizitat nuk janë të mundshme. Ju lutemi na kontaktoni vetëm me telefon, WhatsApp ose e-mail.',
+    impAdresseHinweis: 'Shënim: Kjo është adresa e zyrës së Allianz Versicherung Mentor Dzemaili. Vizita vetëm për kërkesa financimi dhe sigurimesh pas marrëveshjes paraprake. Person kontakti: Mentor Berisha.',
     dsTitle: 'Politika e privatësisë',
     ds1: '1. Kontrollori', ds2: '2. Mbledhja e të dhënave personale', ds3: '3. Ruajtja e të dhënave',
     ds4: '4. Komunikimi me e-mail', ds5: '5. Të drejtat tuaja', ds6: '6. E drejta për ankim', ds7: '7. Cookies',
@@ -215,7 +215,7 @@ const T = {
     footerLeistungen: 'Services', footerRechtliches: 'Legal',
     footerLinks: ['Application Assistance','Application Review','Translations','Insurance','Qualification Recognition'],
     impressum: 'Legal Notice', datenschutz: 'Privacy Policy', kontakt: 'Contact',
-    copyright: '© 2026 AntragshelferPro – Mentor Berisha, Wuppertal. All rights reserved.',
+    copyright: '© 2026 AntragshelferPro – Mentor Berisha, Monheim am Rhein. All rights reserved.',
     floatingCta: '📅 Book now',
     empfohlen: 'Recommended',
     impTitle: 'Legal Notice',
@@ -226,7 +226,7 @@ const T = {
     impHaftungText: 'The contents of this website have been created with the greatest care. However, no guarantee can be given for the accuracy, completeness and topicality of the content.',
     impHinweis: 'Note on consulting',
     impHinweisText: 'The services offered on this website do not constitute legal advice within the meaning of the RDG (Legal Services Act).',
-    impAdresseHinweis: 'Note: This is the registered address only. There is no office at this location – visits are not possible. Please contact us exclusively by phone, WhatsApp or email.',
+    impAdresseHinweis: 'Note: This is the office address of Allianz Versicherung Mentor Dzemaili. Visits only for financing and insurance enquiries by prior appointment. Contact person: Mentor Berisha.',
     dsTitle: 'Privacy Policy',
     ds1: '1. Controller', ds2: '2. Collection of personal data', ds3: '3. Data storage',
     ds4: '4. Contact form & email communication', ds5: '5. Your rights', ds6: '6. Right to complain', ds7: '7. Cookies',
@@ -715,7 +715,7 @@ export default function Home() {
             <button className="modal-close" onClick={() => setModal(null)}>✕</button>
             <h2>{t.dsTitle}</h2>
             <h3>{t.ds1}</h3>
-            <p>Mentor Berisha · Wiesenstraße 7 · 42105 Wuppertal<br/>
+            <p>Mentor Berisha · Krischerstraße 6b · 40789 Monheim am Rhein<br/>
               E-Mail: <a href="mailto:antragshelferpro@gmail.com">antragshelferpro@gmail.com</a><br/>
               Tel: <a href="tel:+4917451560330">+49 174 5156030</a></p>
             <h3>{t.ds2}</h3><p>{t.ds2text}</p>
