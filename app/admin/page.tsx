@@ -459,7 +459,7 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* ── INVOICE MODAL ── */
+      {/* ── INVOICE MODAL ── */}
       {invoiceBooking && invoiceForm && (
         <div style={s.overlay} onClick={() => { setInvoiceBooking(null); setInvoiceForm(null) }}>
           <div style={s.modal} onClick={e => e.stopPropagation()}>
