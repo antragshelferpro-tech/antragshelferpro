@@ -2,6 +2,16 @@
 import { useState, useCallback, useEffect } from 'react'
 import { Booking, BookingStatus } from '../../lib/types'
 
+interface FinancingRequest {
+  id: string; created_at: string; vorname: string; nachname: string;
+  email: string; telefon: string; sprache: string;
+  finanzierungsart: string; kreditsumme: string; laufzeit: string;
+  verwendungszweck: string; anzahl_kreditnehmer: string;
+  arbeitsverhaeltnis: string; beschaeftigt_seit: string;
+  netto_einkommen: string; arbeitgeber: string; nachricht: string;
+  status: 'weitergeleitet' | 'in_bearbeitung' | 'abgeschlossen' | 'storniert'
+}
+
 const STATUS_COLORS: Record<BookingStatus, string> = {
   neu: '#3b82f6', bestätigt: '#10b981', abgeschlossen: '#6b7280', storniert: '#ef4444',
 }
@@ -53,6 +63,11 @@ export default function AdminPage() {
   const [maintenance, setMaintenance]       = useState(false)
   const [maintLoading, setMaintLoading]     = useState(false)
   const [invoiceBooking, setInvoiceBooking] = useState<Booking | null>(null)
+  const [activeTab, setActiveTab]           = useState<'bookings' | 'financing'>('bookings')
+  const [financing, setFinancing]           = useState<FinancingRequest[]>([])
+  const [finLoading, setFinLoading]         = useState(false)
+  const [finFilter, setFinFilter]           = useState<FinancingRequest['status'] | 'alle'>('alle')
+  const [finUpdating, setFinUpdating]       = useState<string | null>(null)
   const [invoiceLoading, setInvoiceLoading] = useState(false)
   const [invoiceForm, setInvoiceForm]       = useState<InvoiceForm | null>(null)
 
@@ -85,6 +100,7 @@ export default function AdminPage() {
     if (authed && password && bookings.length === 0) {
       load(password)
       loadMaintenance(password)
+      loadFinancing(password)
     }
   }, [authed, password])
 
@@ -92,6 +108,13 @@ export default function AdminPage() {
     const res = await fetch('/api/maintenance', { headers: { 'x-admin-password': pwd } })
     const data = await res.json()
     setMaintenance(data.maintenance === true)
+  }, [])
+
+  const loadFinancing = useCallback(async (pwd: string) => {
+    setFinLoading(true)
+    const res = await fetch('/api/financing/admin', { headers: { 'x-admin-password': pwd } })
+    if (res.ok) { const data = await res.json(); setFinancing(Array.isArray(data) ? data : []) }
+    setFinLoading(false)
   }, [])
 
   async function login() {
@@ -103,6 +126,7 @@ export default function AdminPage() {
     const data = await res.json()
     setBookings(Array.isArray(data) ? data : [])
     loadMaintenance(password)
+    loadFinancing(password)
   }
 
   async function toggleMaintenance() {
@@ -196,6 +220,44 @@ export default function AdminPage() {
     }
   }
 
+  const FIN_STATUS_COLORS: Record<FinancingRequest['status'], string> = {
+    weitergeleitet: '#8b5cf6', in_bearbeitung: '#f59e0b',
+    abgeschlossen: '#6b7280', storniert: '#ef4444',
+  }
+  const FIN_STATUS_LABELS: Record<FinancingRequest['status'], string> = {
+    weitergeleitet: '🟣 Weitergeleitet', in_bearbeitung: '🟡 In Bearbeitung',
+    abgeschlossen: '⬛ Abgeschlossen', storniert: '❌ Storniert',
+  }
+
+  async function updateFinancingStatus(id: string, status: FinancingRequest['status']) {
+    setFinUpdating(id)
+    await fetch('/api/financing/admin', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ id, status }),
+    })
+    setFinancing(fs => fs.map(f => f.id === id ? { ...f, status } : f))
+    setFinUpdating(null)
+  }
+
+  async function deleteFinancing(id: string) {
+    if (!window.confirm('Diese Finanzierungsanfrage endgültig löschen?')) return
+    const res = await fetch('/api/financing/admin', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ id }),
+    })
+    if (res.ok) setFinancing(fs => fs.filter(f => f.id !== id))
+    else { const d = await res.json(); alert(d.error || 'Fehler') }
+  }
+
+  const filteredFinancing = financing.filter(f =>
+    finFilter === 'alle' || f.status === finFilter
+  )
+
+  const finCounts: Record<string, number> = { alle: financing.length }
+  financing.forEach(f => { finCounts[f.status] = (finCounts[f.status] || 0) + 1 })
+
   const filtered = bookings.filter(b => {
     const matchStatus = filter === 'alle' || b.status === filter
     const q = search.toLowerCase()
@@ -254,8 +316,22 @@ export default function AdminPage() {
         </div>
       </div>
 
+      {/* TABS */}
+      <div style={s.tabRow}>
+        <button style={{...s.tabBtn, borderBottom: activeTab==='bookings' ? '3px solid #c9a84c' : '3px solid transparent', color: activeTab==='bookings' ? '#0f1f3d' : '#6b7280'}}
+          onClick={() => setActiveTab('bookings')}>
+          📋 Buchungsanfragen
+          <span style={{...s.tabBadge, background: activeTab==='bookings'?'#0f1f3d':'#e5e7eb', color: activeTab==='bookings'?'#c9a84c':'#6b7280'}}>{bookings.length}</span>
+        </button>
+        <button style={{...s.tabBtn, borderBottom: activeTab==='financing' ? '3px solid #8b5cf6' : '3px solid transparent', color: activeTab==='financing' ? '#0f1f3d' : '#6b7280'}}
+          onClick={() => setActiveTab('financing')}>
+          🏦 Finanzierungsanfragen
+          <span style={{...s.tabBadge, background: activeTab==='financing'?'#8b5cf6':'#e5e7eb', color: activeTab==='financing'?'#fff':'#6b7280'}}>{financing.length}</span>
+        </button>
+      </div>
+
       {/* STATS */}
-      <div style={s.statsRow}>
+      {activeTab === 'bookings' && <div style={s.statsRow}>
         {(['alle','neu','bestätigt','abgeschlossen','storniert'] as const).map(st => (
           <button key={st} style={{...s.statCard, background: filter===st?'#0f1f3d':'#fff', color: filter===st?'#c9a84c':'#1a2540', borderColor: filter===st?'#0f1f3d':'#e5e7eb'}}
             onClick={() => setFilter(st)}>
@@ -263,16 +339,16 @@ export default function AdminPage() {
             <div style={{fontSize:'0.78rem', marginTop:3}}>{st==='alle'?'Gesamt':STATUS_LABELS[st as BookingStatus]}</div>
           </button>
         ))}
-      </div>
+      </div>}
 
       {/* SEARCH */}
-      <div style={s.searchBar}>
+      {activeTab === 'bookings' && <div style={s.searchBar}>
         <input style={s.searchInput} placeholder="🔍  Name, E-Mail oder Leistung suchen..."
           value={search} onChange={e => setSearch(e.target.value)} />
-      </div>
+      </div>}
 
       {/* BOOKINGS */}
-      {loading ? <div style={s.loading}>Lade Buchungen...</div> : (
+      {activeTab === 'bookings' && (loading ? <div style={s.loading}>Lade Buchungen...</div> : (
         <div style={s.tableWrap}>
           {filtered.length === 0
             ? <div style={s.empty}>Keine Buchungen gefunden.</div>
@@ -320,7 +396,70 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* ── INVOICE MODAL ── */}
+      )}
+
+      {/* ── FINANCING TAB ── */}
+      {activeTab === 'financing' && (
+        <div>
+          {/* Financing Stats */}
+          <div style={s.statsRow}>
+            {(['alle','weitergeleitet','in_bearbeitung','abgeschlossen','storniert'] as const).map(st => (
+              <button key={st} style={{...s.statCard, background: finFilter===st?'#5b21b6':'#fff', color: finFilter===st?'#fff':'#1a2540', borderColor: finFilter===st?'#5b21b6':'#e5e7eb'}}
+                onClick={() => setFinFilter(st)}>
+                <div style={{fontSize:'1.5rem', fontWeight:900}}>{finCounts[st]??0}</div>
+                <div style={{fontSize:'0.75rem', marginTop:3}}>{st==='alle'?'Gesamt':FIN_STATUS_LABELS[st as FinancingRequest['status']]}</div>
+              </button>
+            ))}
+          </div>
+          {/* Financing List */}
+          {finLoading ? <div style={s.loading}>Lade Finanzierungsanfragen...</div> : (
+            <div style={s.tableWrap}>
+              {filteredFinancing.length === 0
+                ? <div style={s.empty}>Keine Finanzierungsanfragen gefunden.</div>
+                : filteredFinancing.map(f => (
+                  <div key={f.id} style={s.row}>
+                    <div style={s.rowTop}>
+                      <div>
+                        <div style={s.rowName}>{f.vorname} {f.nachname}</div>
+                        <div style={s.rowMeta}>{f.email}{f.telefon ? ` · ${f.telefon}` : ''}</div>
+                      </div>
+                      <div style={{display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' as const}}>
+                        <span style={{...s.badge, background: FIN_STATUS_COLORS[f.status]+'22', color: FIN_STATUS_COLORS[f.status], border:`1px solid ${FIN_STATUS_COLORS[f.status]}44`}}>
+                          {FIN_STATUS_LABELS[f.status]}
+                        </span>
+                        {f.status === 'storniert' && (
+                          <button style={s.deleteBtn} onClick={() => deleteFinancing(f.id)}>🗑️ Löschen</button>
+                        )}
+                      </div>
+                    </div>
+                    <div style={s.rowLeistung}>🏦 {f.finanzierungsart} · {f.kreditsumme} € · {f.laufzeit} Monate</div>
+                    {f.verwendungszweck && <div style={s.rowMeta}>📌 {f.verwendungszweck}</div>}
+                    <div style={{...s.rowMeta, marginTop:4}}>
+                      {f.anzahl_kreditnehmer && `👥 ${f.anzahl_kreditnehmer} · `}
+                      {f.arbeitsverhaeltnis && `💼 ${f.arbeitsverhaeltnis} · `}
+                      {f.netto_einkommen && `💶 ${f.netto_einkommen} € netto · `}
+                      📅 {new Date(f.created_at).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+                    </div>
+                    {f.nachricht && <div style={s.rowMsg}>💬 {f.nachricht}</div>}
+                    <div style={s.rowActions}>
+                      <span style={{fontSize:'0.78rem',color:'#6b7280'}}>Status ändern:</span>
+                      {(['weitergeleitet','in_bearbeitung','abgeschlossen','storniert'] as FinancingRequest['status'][]).map(st => (
+                        <button key={st} disabled={f.status===st||finUpdating===f.id}
+                          style={{...s.actionBtn, opacity:f.status===st?0.4:1, background:FIN_STATUS_COLORS[st]+'18', color:FIN_STATUS_COLORS[st], borderColor:FIN_STATUS_COLORS[st]+'44'}}
+                          onClick={() => updateFinancingStatus(f.id, st)}>
+                          {finUpdating===f.id?'...':st==='weitergeleitet'?'Weitergeleitet':st==='in_bearbeitung'?'In Bearbeitung':st.charAt(0).toUpperCase()+st.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── INVOICE MODAL ── */
       {invoiceBooking && invoiceForm && (
         <div style={s.overlay} onClick={() => { setInvoiceBooking(null); setInvoiceForm(null) }}>
           <div style={s.modal} onClick={e => e.stopPropagation()}>
@@ -475,6 +614,9 @@ const s: Record<string, React.CSSProperties> = {
   rowActions:   { display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' as const, marginTop:12 },
   badge:        { borderRadius:100, padding:'4px 12px', fontSize:'0.78rem', fontWeight:700, whiteSpace:'nowrap' as const },
   actionBtn:    { border:'1px solid', borderRadius:8, padding:'5px 12px', fontSize:'0.78rem', fontWeight:600, cursor:'pointer', fontFamily:"'DM Sans',sans-serif" },
+  tabRow:       { display:'flex', gap:0, background:'#fff', borderBottom:'1px solid #e5e7eb', padding:'0 24px' },
+  tabBtn:       { padding:'14px 20px', border:'none', background:'none', cursor:'pointer', fontFamily:"'DM Sans',sans-serif", fontSize:'0.92rem', fontWeight:600, display:'flex', alignItems:'center', gap:8, transition:'all .2s' },
+  tabBadge:     { borderRadius:100, padding:'2px 8px', fontSize:'0.75rem', fontWeight:700 },
   deleteBtn:    { background:'#fef2f2', color:'#ef4444', border:'1px solid #fecaca', borderRadius:8, padding:'6px 14px', fontSize:'0.8rem', fontWeight:700, cursor:'pointer', fontFamily:"'DM Sans',sans-serif", whiteSpace:'nowrap' as const },
   invoiceBtn:   { background:'#0f1f3d', color:'#c9a84c', border:'none', borderRadius:8, padding:'6px 14px', fontSize:'0.8rem', fontWeight:700, cursor:'pointer', fontFamily:"'DM Sans',sans-serif", whiteSpace:'nowrap' as const },
   loading:      { padding:'48px', textAlign:'center' as const, color:'#6b7280' },

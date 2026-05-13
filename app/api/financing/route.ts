@@ -16,33 +16,29 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const {
       vorname, nachname, email, telefon, sprache,
-      // Financing specific fields
-      finanzierungsart,
-      kreditsumme,
-      laufzeit,
-      verwendungszweck,
-      anzahlKreditnehmer,
-      arbeitsverhältnis,
-      beschaeftigtSeit,
-      nettoEinkommen,
-      arbeitgeber,
-      nachricht,
+      finanzierungsart, kreditsumme, laufzeit,
+      verwendungszweck, anzahlKreditnehmer,
+      arbeitsverhältnis, beschaeftigtSeit,
+      nettoEinkommen, arbeitgeber, nachricht,
     } = body
 
-    // Validation
     if (!vorname || !nachname || !email || !finanzierungsart || !kreditsumme || !laufzeit) {
       return NextResponse.json({ error: 'Pflichtfelder fehlen.' }, { status: 400 })
     }
 
-    // Save to Supabase (bookings table with financing type)
+    // Save to dedicated financing_requests table
     const { data, error: dbError } = await supabase
-      .from('bookings')
+      .from('financing_requests')
       .insert([{
         vorname, nachname, email, telefon,
-        leistung: `Finanzierung: ${finanzierungsart} – ${kreditsumme} € / ${laufzeit} Monate`,
         sprache: sprache || 'Deutsch',
-        nachricht: `Kreditsumme: ${kreditsumme} €\nLaufzeit: ${laufzeit} Monate\nVerwendungszweck: ${verwendungszweck || '–'}\nAnzahl Kreditnehmer: ${anzahlKreditnehmer || '–'}\nArbeitsverhältnis: ${arbeitsverhältnis || '–'}\nBeschäftigt seit: ${beschaeftigtSeit || '–'}\nNettoeinkommen: ${nettoEinkommen ? nettoEinkommen + ' €' : '–'}\nArbeitgeber: ${arbeitgeber || '–'}\nNachricht: ${nachricht || '–'}`,
-        status: 'neu',
+        finanzierungsart, kreditsumme, laufzeit,
+        verwendungszweck, anzahl_kreditnehmer: anzahlKreditnehmer,
+        arbeitsverhaeltnis: arbeitsverhältnis,
+        beschaeftigt_seit: beschaeftigtSeit,
+        netto_einkommen: nettoEinkommen,
+        arbeitgeber, nachricht,
+        status: 'weitergeleitet',
       }])
       .select()
       .single()
@@ -67,10 +63,9 @@ export async function POST(req: NextRequest) {
         <div style="font-family:sans-serif;max-width:620px;margin:auto;color:#1a2540;">
           <div style="background:#0f1f3d;padding:24px 32px;border-radius:12px 12px 0 0;">
             <h1 style="color:#c9a84c;font-size:1.3rem;margin:0 0 4px;">Neue Finanzierungsanfrage</h1>
-            <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin:0;">Weitergeleitet von AntragshelferPro · Mentor Berisha, Wuppertal</p>
+            <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin:0;">Weitergeleitet von AntragshelferPro · Mentor Berisha, Monheim am Rhein</p>
           </div>
           <div style="background:#fff;padding:28px 32px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 12px 12px;">
-
             <h2 style="font-size:1rem;color:#0f1f3d;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid #c9a84c;">👤 Kundendaten</h2>
             <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
               ${tableRow('Name', `${vorname} ${nachname}`)}
@@ -78,7 +73,6 @@ export async function POST(req: NextRequest) {
               ${tableRow('Telefon', telefon || '–')}
               ${tableRow('Sprache', sprache || 'Deutsch')}
             </table>
-
             <h2 style="font-size:1rem;color:#0f1f3d;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid #c9a84c;">🏦 Finanzierungsdetails</h2>
             <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
               ${tableRow('Finanzierungsart', finanzierungsart)}
@@ -87,7 +81,6 @@ export async function POST(req: NextRequest) {
               ${tableRow('Verwendungszweck', verwendungszweck || '–')}
               ${tableRow('Anzahl Kreditnehmer', anzahlKreditnehmer || '–')}
             </table>
-
             <h2 style="font-size:1rem;color:#0f1f3d;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid #c9a84c;">💼 Wirtschaftliche Verhältnisse</h2>
             <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
               ${tableRow('Arbeitsverhältnis', arbeitsverhältnis || '–')}
@@ -95,15 +88,12 @@ export async function POST(req: NextRequest) {
               ${tableRow('Monatl. Nettoeinkommen', nettoEinkommen ? nettoEinkommen + ' €' : '–')}
               ${tableRow('Arbeitgeber', arbeitgeber || '–')}
             </table>
-
             ${nachricht ? `
-            <h2 style="font-size:1rem;color:#0f1f3d;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #c9a84c;">💬 Nachricht des Kunden</h2>
+            <h2 style="font-size:1rem;color:#0f1f3d;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #c9a84c;">💬 Nachricht</h2>
             <div style="background:#f8fafc;border-radius:8px;padding:14px;font-size:0.9rem;color:#4b5563;margin-bottom:24px;">${nachricht}</div>
             ` : ''}
-
             <div style="background:#fef9ec;border:1px solid #fde68a;border-radius:8px;padding:14px 18px;font-size:0.85rem;color:#92400e;">
-              <strong>Hinweis:</strong> Diese Anfrage wurde über AntragshelferPro eingereicht und automatisch an Sie weitergeleitet. 
-              Bitte nehmen Sie direkt Kontakt mit dem Kunden auf.
+              <strong>Hinweis:</strong> Diese Anfrage wurde über AntragshelferPro eingereicht. Bitte nehmen Sie direkt Kontakt mit dem Kunden auf.
             </div>
           </div>
           <p style="text-align:center;color:#9ca3af;font-size:0.78rem;margin-top:16px;">
@@ -126,10 +116,10 @@ export async function POST(req: NextRequest) {
           </div>
           <div style="background:#faf7f0;padding:32px;border-radius:0 0 12px 12px;border:1px solid #eee;">
             <h2 style="color:#0f1f3d;">Vielen Dank, ${vorname}!</h2>
-            <p style="line-height:1.6;color:#5a6a85;">Wir haben Ihre Finanzierungsanfrage erhalten und an unseren Partner weitergeleitet:</p>
+            <p style="line-height:1.6;color:#5a6a85;">Wir haben Ihre Finanzierungsanfrage erhalten und direkt an unseren Partner weitergeleitet:</p>
             <div style="background:#fff;border-radius:10px;padding:16px 20px;margin:16px 0;border:1px solid #e8e0d0;">
-              <p style="margin:0 0 8px;font-weight:700;color:#0f1f3d;">${PARTNER_NAME}</p>
-              <p style="margin:0;font-size:0.88rem;color:#6b7280;">Monheim am Rhein</p>
+              <p style="margin:0 0 6px;font-weight:700;color:#0f1f3d;">${PARTNER_NAME}</p>
+              <p style="margin:0;font-size:0.85rem;color:#6b7280;">Krischerstraße 6b · 40789 Monheim am Rhein</p>
             </div>
             <div style="background:#fff;border-radius:10px;padding:16px 20px;margin:16px 0;border:1px solid #e8e0d0;">
               <p style="margin:0 0 8px;"><strong>Finanzierungsart:</strong> ${finanzierungsart}</p>
