@@ -394,9 +394,7 @@ export default function AdminPage() {
             ))
           }
         </div>
-      )}
-
-      )}
+      ))}
 
       {/* ── FINANCING TAB ── */}
       {activeTab === 'financing' && (
