@@ -3,21 +3,21 @@ import { useState, useEffect, useRef } from 'react'
 
 const SERVICES = {
   de: [
-    'Basis-Paket (99 €)',
+    'Basis-Paket (100 €)',
     'Komplett-Service (239 €)',
     'Anerkennung ausländischer Qualifikationen (469 €)',
     'Übersetzung Albanisch ↔ Deutsch (ab 35 €/Seite)',
     'Versicherungsberatung (kostenlos)',
   ],
   sq: [
-    'Paketa Bazë (99 €)',
+    'Paketa Bazë (100 €)',
     'Shërbim i Plotë (239 €)',
     'Njohja e Kualifikimeve të Huaja (469 €)',
     'Përkthim Shqip ↔ Gjermanisht (nga 35 €/faqe)',
     'Këshilla Sigurimi (falas)',
   ],
   en: [
-    'Basic Package (99 €)',
+    'Basic Package (100 €)',
     'Full Service (239 €)',
     'Recognition of Foreign Qualifications (469 €)',
     'Translation Albanian ↔ German (from 35 €/page)',

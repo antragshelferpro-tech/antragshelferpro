@@ -37,7 +37,7 @@ const T = {
     secPreiseLabel: 'Transparente Preise', secPreiseTitle: 'Klare Kosten, kein Kleingedrucktes',
     secPreiseSub: 'Faire, nachvollziehbare Preise – keine versteckten Gebühren.',
     pricing: [
-      {title:'Basis', desc:'Für einfache Anliegen', price:'99', period:'/ Leistung', features:['Antragsprüfung (1 Antrag)','Online-Beratung (30 Min.)','E-Mail-Support','Rückmeldung in 48h']},
+      {title:'Basis', desc:'Für einfache Anliegen', price:'100', period:'/ Leistung', features:['Antragsprüfung (1 Antrag)','Online-Beratung (30 Min.)','E-Mail-Support','Rückmeldung in 48h']},
       {title:'Übersetzung', desc:'Albanisch ↔ Deutsch', price:'35', period:'/ Seite', features:['Beglaubigte Übersetzung','Urkunden & Verträge','Behördenpost','Express möglich (+50%)','Lieferung PDF & Original']},
       {title:'Komplett-Service', desc:'Für vollständige Begleitung', price:'239', period:'/ Vorgang', featured:true, features:['Vollständige Antragsstellung','Prüfung & Korrektur','Einreichung & Nachverfolgung','Telefonische Begleitung','Unbegrenzte Nachfragen','Rückmeldung in 24h']},
       {title:'Anerkennung', desc:'Ausländische Qualifikationen', price:'469', period:'/ Vorgang', features:['Vollständige Verfahrensbegleitung','Prüfung der Unterlagen','Kommunikation mit Behörden','Anerkennungsberatung','Statusverfolgung']},
@@ -115,7 +115,7 @@ const T = {
     secPreiseLabel: 'Çmime transparente', secPreiseTitle: 'Kosto të qarta, pa shkronja të vogla',
     secPreiseSub: 'Çmime të drejta dhe të kuptueshme – pa tarifa të fshehura.',
     pricing: [
-      {title:'Bazë', desc:'Për nevoja të thjeshta', price:'99', period:'/ shërbim', features:['Kontroll kërkese (1 kërkesë)','Këshilla online (30 min.)','Mbështetje me e-mail','Përgjigje brenda 48h']},
+      {title:'Bazë', desc:'Për nevoja të thjeshta', price:'100', period:'/ shërbim', features:['Kontroll kërkese (1 kërkesë)','Këshilla online (30 min.)','Mbështetje me e-mail','Përgjigje brenda 48h']},
       {title:'Përkthim', desc:'Shqip ↔ Gjermanisht', price:'35', period:'/ faqe', features:['Përkthim i vërtetuar','Dokumente & kontrata','Letra zyrtare','Express i mundshëm (+50%)','Dorëzim PDF & origjinal']},
       {title:'Shërbim i plotë', desc:'Për shoqërim të plotë', price:'239', period:'/ rast', featured:true, features:['Plotësim i plotë i kërkesës','Kontroll & korrigjim','Dorëzim & ndjekje','Shoqërim telefonik','Pyetje të pakufizuara','Përgjigje brenda 24h']},
       {title:'Njohja', desc:'Kualifikime të huaja', price:'469', period:'/ rast', features:['Shoqërim i plotë i procedurës','Kontroll dokumentesh','Komunikim me autoritetet','Këshillim për njohje','Ndjekja e statusit']},
@@ -193,7 +193,7 @@ const T = {
     secPreiseLabel: 'Transparent pricing', secPreiseTitle: 'Clear costs, no fine print',
     secPreiseSub: 'Fair, transparent pricing – no hidden fees.',
     pricing: [
-      {title:'Basic', desc:'For simple requests', price:'99', period:'/ service', features:['Application review (1 application)','Online consultation (30 min.)','Email support','Response within 48h']},
+      {title:'Basic', desc:'For simple requests', price:'100', period:'/ service', features:['Application review (1 application)','Online consultation (30 min.)','Email support','Response within 48h']},
       {title:'Translation', desc:'Albanian ↔ German', price:'35', period:'/ page', features:['Certified translation','Documents & contracts','Official letters','Express available (+50%)','Delivery PDF & original']},
       {title:'Full Service', desc:'For complete assistance', price:'239', period:'/ case', featured:true, features:['Complete application filing','Review & correction','Submission & follow-up','Phone support','Unlimited questions','Response within 24h']},
       {title:'Recognition', desc:'Foreign qualifications', price:'469', period:'/ case', features:['Full process guidance','Document review','Communication with authorities','Recognition consulting','Status tracking']},
