@@ -95,7 +95,7 @@ const T = {
     langLabel: 'Flasim gjuhën tuaj:',
     navLeistungen: 'Shërbime', navPreise: 'Çmimet', navAblauf: 'Procesi', navBewertungen: 'Vlerësimet', navBuchen: 'Rezervo →',
     secLeistungenLabel: 'Shërbimet tona', secLeistungenTitle: 'Çfarë bëjmë për ju',
-    secLeistungenSub: 'Ndihmojmë me çdo lloj kërkese dhe formulari – në zyra, sigurime, shoqata ose organizma privatë.',
+    secLeistungenSub: 'Ndihmojmë me çdo lloj kërkese dhe formulari – në zyra, sigurime, shoqata ose organizata private.',
     services: [
       {icon:'📋', title:'Plotësim kërkesash', desc:'Plotësojmë, kontrollojmë dhe dorëzojmë kërkesa të çdo lloji – në zyra, sigurime, qiradhënës dhe më shumë.'},
       {icon:'🔍', title:'Kontroll kërkesash', desc:'Keni plotësuar tashmë një kërkesë? Ne e kontrollojmë për plotësi, gabime dhe mundësi optimizimi.', tag:'Popullar'},
