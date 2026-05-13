@@ -8,7 +8,7 @@ const supabase = createClient(
 )
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const PARTNER_EMAIL = 'rysonshorts@gmail.com'
+const PARTNER_EMAIL = 'mentor.dzemaili@allianz.de'
 const PARTNER_NAME  = 'Allianz Versicherung Mentor Dzemaili Hauptvertretung'
 
 export async function POST(req: NextRequest) {
