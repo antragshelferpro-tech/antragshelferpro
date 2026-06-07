@@ -311,6 +311,7 @@ export default function AdminPage() {
             </button>
           </div>
           <a href="/admin/rechnung" style={s.invoiceGenBtn}>🧾 Rechnungsgenerator</a>
+          <a href="/admin/preise" style={s.invoiceGenBtn}>💶 Preisliste</a>
           <button style={s.refreshBtn} onClick={() => load(password)}>🔄 Aktualisieren</button>
           <button style={s.logoutBtn} onClick={() => { sessionStorage.removeItem('ahp_admin_pwd'); setAuthed(false); setPassword(''); setBookings([]) }}>Logout</button>
         </div>
