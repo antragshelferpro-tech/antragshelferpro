@@ -3,25 +3,25 @@ import { useState, useEffect, useRef } from 'react'
 
 const SERVICES = {
   de: [
-    'Basis-Paket (100 €)',
-    'Komplett-Service (239 €)',
-    'Anerkennung ausländischer Qualifikationen (469 €)',
-    'Übersetzung Albanisch ↔ Deutsch (ab 35 €/Seite)',
-    'Versicherungsberatung (kostenlos)',
+    'Basis-Paket',
+    'Komplett-Service',
+    'Anerkennung ausländischer Qualifikationen',
+    'Übersetzung Albanisch ↔ Deutsch',
+    'Versicherungsberatung & Finanzierung',
   ],
   sq: [
-    'Paketa Bazë (100 €)',
-    'Shërbim i Plotë (239 €)',
-    'Njohja e Kualifikimeve të Huaja (469 €)',
-    'Përkthim Shqip ↔ Gjermanisht (nga 35 €/faqe)',
-    'Këshilla Sigurimi (falas)',
+    'Paketa Bazë',
+    'Shërbim i Plotë',
+    'Njohja e Kualifikimeve të Huaja',
+    'Përkthim Shqip ↔ Gjermanisht',
+    'Sigurim & Financim',
   ],
   en: [
-    'Basic Package (100 €)',
-    'Full Service (239 €)',
-    'Recognition of Foreign Qualifications (469 €)',
-    'Translation Albanian ↔ German (from 35 €/page)',
-    'Insurance Consulting (free)',
+    'Basic Package',
+    'Full Service',
+    'Recognition of Foreign Qualifications',
+    'Translation Albanian ↔ German',
+    'Insurance & Financing',
   ],
 }
 

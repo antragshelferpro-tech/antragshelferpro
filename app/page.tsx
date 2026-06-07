@@ -34,14 +34,14 @@ const T = {
       ['3','Bearbeitung','Wir kümmern uns um alle Schritte und halten Sie informiert.'],
       ['4','Erledigt ✓','Sie erhalten das Ergebnis und alle Unterlagen – ohne Stress.'],
     ],
-    secPreiseLabel: 'Transparente Preise', secPreiseTitle: 'Klare Kosten, kein Kleingedrucktes',
-    secPreiseSub: 'Faire, nachvollziehbare Preise – keine versteckten Gebühren.',
+    secPreiseLabel: 'Unsere Pakete', secPreiseTitle: 'Leistungen auf Anfrage',
+    secPreiseSub: 'Jede Situation ist individuell – kontaktieren Sie uns für ein persönliches Angebot.',
     pricing: [
-      {title:'Basis', desc:'Für einfache Anliegen', price:'100', period:'/ Leistung', features:['Antragsprüfung (1 Antrag)','Online-Beratung (30 Min.)','E-Mail-Support','Rückmeldung in 48h']},
-      {title:'Übersetzung', desc:'Albanisch ↔ Deutsch', price:'35', period:'/ Seite', features:['Beglaubigte Übersetzung','Urkunden & Verträge','Behördenpost','Express möglich (+50%)','Lieferung PDF & Original']},
-      {title:'Komplett-Service', desc:'Für vollständige Begleitung', price:'239', period:'/ Vorgang', featured:true, features:['Vollständige Antragsstellung','Prüfung & Korrektur','Einreichung & Nachverfolgung','Telefonische Begleitung','Unbegrenzte Nachfragen','Rückmeldung in 24h']},
-      {title:'Anerkennung', desc:'Ausländische Qualifikationen', price:'469', period:'/ Vorgang', features:['Vollständige Verfahrensbegleitung','Prüfung der Unterlagen','Kommunikation mit Behörden','Anerkennungsberatung','Statusverfolgung']},
-      {title:'Versicherung', desc:'Unabhängige Beratung', price:'Gratis', period:'', features:['Unabhängige Beratung','Tarif-Vergleich','KV, Haftpflicht, Hausrat, Kfz','Wechselservice','Ohne Verpflichtung']},
+      {title:'Basis', desc:'Für einfache Anliegen', price:'Auf Anfrage', period:'', features:['Antragsprüfung (1 Antrag)','Online-Beratung (30 Min.)','E-Mail-Support','Rückmeldung in 48h']},
+      {title:'Übersetzung', desc:'Albanisch ↔ Deutsch', price:'Auf Anfrage', period:'', features:['Beglaubigte Übersetzung','Urkunden & Verträge','Behördenpost','Express möglich','Lieferung PDF & Original']},
+      {title:'Komplett-Service', desc:'Für vollständige Begleitung', price:'Auf Anfrage', period:'', featured:true, features:['Vollständige Antragsstellung','Prüfung & Korrektur','Einreichung & Nachverfolgung','Telefonische Begleitung','Unbegrenzte Nachfragen','Rückmeldung in 24h']},
+      {title:'Anerkennung', desc:'Ausländische Qualifikationen', price:'Auf Anfrage', period:'', features:['Vollständige Verfahrensbegleitung','Prüfung der Unterlagen','Kommunikation mit Behörden','Anerkennungsberatung','Statusverfolgung']},
+      {title:'Versicherung & Finanzierung', desc:'Unabhängige Beratung', price:'Kostenlos', period:'', features:['Unabhängige Beratung','Tarif-Vergleich','KV, Haftpflicht, Hausrat, Kfz','Finanzierungen aller Art','Ohne Verpflichtung']},
     ],
     btnBuchen: 'Buchen →',
     secBewLabel: 'Kundenstimmen', secBewTitle: 'Was unsere Kunden sagen',
@@ -112,14 +112,14 @@ const T = {
       ['3','Përpunim','Ne kujdesemi për të gjitha hapat dhe ju informojmë rregullisht.'],
       ['4','Përfunduar ✓','Merrni rezultatin dhe të gjitha dokumentet – pa stres.'],
     ],
-    secPreiseLabel: 'Çmime transparente', secPreiseTitle: 'Kosto të qarta, pa shkronja të vogla',
-    secPreiseSub: 'Çmime të drejta dhe të kuptueshme – pa tarifa të fshehura.',
+    secPreiseLabel: 'Paketat tona', secPreiseTitle: 'Shërbime me kërkesë',
+    secPreiseSub: 'Çdo situatë është individuale – na kontaktoni për një ofertë personale.',
     pricing: [
-      {title:'Bazë', desc:'Për nevoja të thjeshta', price:'100', period:'/ shërbim', features:['Kontroll kërkese (1 kërkesë)','Këshilla online (30 min.)','Mbështetje me e-mail','Përgjigje brenda 48h']},
-      {title:'Përkthim', desc:'Shqip ↔ Gjermanisht', price:'35', period:'/ faqe', features:['Përkthim i vërtetuar','Dokumente & kontrata','Letra zyrtare','Express i mundshëm (+50%)','Dorëzim PDF & origjinal']},
-      {title:'Shërbim i plotë', desc:'Për shoqërim të plotë', price:'239', period:'/ rast', featured:true, features:['Plotësim i plotë i kërkesës','Kontroll & korrigjim','Dorëzim & ndjekje','Shoqërim telefonik','Pyetje të pakufizuara','Përgjigje brenda 24h']},
-      {title:'Njohja', desc:'Kualifikime të huaja', price:'469', period:'/ rast', features:['Shoqërim i plotë i procedurës','Kontroll dokumentesh','Komunikim me autoritetet','Këshillim për njohje','Ndjekja e statusit']},
-      {title:'Sigurim', desc:'Këshilla të pavarura', price:'Falas', period:'', features:['Këshilla të pavarura','Krahasim tarifash','Shëndetësor, civil, shtëpie, auto','Shërbim ndërrimi','Pa detyrime']},
+      {title:'Bazë', desc:'Për nevoja të thjeshta', price:'Me kërkesë', period:'', features:['Kontroll kërkese (1 kërkesë)','Këshilla online (30 min.)','Mbështetje me e-mail','Përgjigje brenda 48h']},
+      {title:'Përkthim', desc:'Shqip ↔ Gjermanisht', price:'Me kërkesë', period:'', features:['Përkthim i vërtetuar','Dokumente & kontrata','Letra zyrtare','Express i mundshëm (+50%)','Dorëzim PDF & origjinal']},
+      {title:'Shërbim i plotë', desc:'Për shoqërim të plotë', price:'Me kërkesë', period:'', featured:true, features:['Plotësim i plotë i kërkesës','Kontroll & korrigjim','Dorëzim & ndjekje','Shoqërim telefonik','Pyetje të pakufizuara','Përgjigje brenda 24h']},
+      {title:'Njohja', desc:'Kualifikime të huaja', price:'Me kërkesë', period:'', features:['Shoqërim i plotë i procedurës','Kontroll dokumentesh','Komunikim me autoritetet','Këshillim për njohje','Ndjekja e statusit']},
+      {title:'Sigurim & Financim', desc:'Këshilla të pavarura', price:'Falas', period:'', features:['Këshilla të pavarura','Krahasim tarifash','Shëndetësor, civil, shtëpie, auto','Financime të të gjitha llojeve','Pa detyrime']},
     ],
     btnBuchen: 'Rezervo →',
     secBewLabel: 'Vlerësimet e klientëve', secBewTitle: 'Çfarë thonë klientët tanë',
@@ -190,14 +190,14 @@ const T = {
       ['3','Processing','We handle all the steps and keep you informed.'],
       ['4','Done ✓','You receive the result and all documents – stress-free.'],
     ],
-    secPreiseLabel: 'Transparent pricing', secPreiseTitle: 'Clear costs, no fine print',
-    secPreiseSub: 'Fair, transparent pricing – no hidden fees.',
+    secPreiseLabel: 'Our packages', secPreiseTitle: 'Services on request',
+    secPreiseSub: 'Every situation is individual – contact us for a personal quote.',
     pricing: [
-      {title:'Basic', desc:'For simple requests', price:'100', period:'/ service', features:['Application review (1 application)','Online consultation (30 min.)','Email support','Response within 48h']},
-      {title:'Translation', desc:'Albanian ↔ German', price:'35', period:'/ page', features:['Certified translation','Documents & contracts','Official letters','Express available (+50%)','Delivery PDF & original']},
-      {title:'Full Service', desc:'For complete assistance', price:'239', period:'/ case', featured:true, features:['Complete application filing','Review & correction','Submission & follow-up','Phone support','Unlimited questions','Response within 24h']},
-      {title:'Recognition', desc:'Foreign qualifications', price:'469', period:'/ case', features:['Full process guidance','Document review','Communication with authorities','Recognition consulting','Status tracking']},
-      {title:'Insurance', desc:'Independent consulting', price:'Free', period:'', features:['Independent consulting','Rate comparison','Health, liability, home, car','Switching service','No obligation']},
+      {title:'Basic', desc:'For simple requests', price:'On request', period:'', features:['Application review (1 application)','Online consultation (30 min.)','Email support','Response within 48h']},
+      {title:'Translation', desc:'Albanian ↔ German', price:'On request', period:'', features:['Certified translation','Documents & contracts','Official letters','Express available (+50%)','Delivery PDF & original']},
+      {title:'Full Service', desc:'For complete assistance', price:'On request', period:'', featured:true, features:['Complete application filing','Review & correction','Submission & follow-up','Phone support','Unlimited questions','Response within 24h']},
+      {title:'Recognition', desc:'Foreign qualifications', price:'On request', period:'', features:['Full process guidance','Document review','Communication with authorities','Recognition consulting','Status tracking']},
+      {title:'Insurance & Financing', desc:'Independent consulting', price:'Free', period:'', features:['Independent consulting','Rate comparison','Health, liability, home, car','All types of financing','No obligation']},
     ],
     btnBuchen: 'Book →',
     secBewLabel: 'Testimonials', secBewTitle: 'What our clients say',
@@ -579,8 +579,8 @@ export default function Home() {
               <h3>{p.title}</h3>
               <div className="price-desc">{p.desc}</div>
               <div className="price-amount">
-                {p.price !== 'Gratis' && p.price !== 'Free' && p.price !== 'Falas' && <span className="price-eur">€</span>}
-                <span className="price-num" style={['Gratis','Free','Falas'].includes(p.price) ? {fontSize:'1.8rem'} : {}}>{p.price}</span>
+                {!['Gratis','Free','Falas','Kostenlos','Auf Anfrage','Me kërkesë','On request'].includes(p.price) && <span className="price-eur">€</span>}
+                <span className="price-num" style={['Gratis','Free','Falas','Kostenlos','Auf Anfrage','Me kërkesë','On request'].includes(p.price) ? {fontSize:'1.2rem'} : {}}>{p.price}</span>
                 {p.period && <span className="price-period">{p.period}</span>}
               </div>
               <ul className="price-features">{p.features.map((f: string) => <li key={f}>{f}</li>)}</ul>
@@ -681,7 +681,7 @@ export default function Home() {
         </div>
         <div className="footer-bottom">
           <p>{t.copyright}</p>
-          <p>Preise inkl. MwSt.</p>
+          <p>Preise auf Anfrage</p>
           <p>Entwickelt von <a href="https://lr-vitality.de" target="_blank" rel="noreferrer" className="dev-credit">LR-vitality.de</a></p>
         </div>
       </footer>
