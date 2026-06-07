@@ -6,7 +6,7 @@ const SESSION_KEY = 'ahp_admin_pwd'
 const PREISLISTE = [
   { leistung: 'Basis-Paket', beschreibung: 'Antragsprüfung (1 Antrag), Online-Beratung 30 Min., E-Mail-Support', preis: '100 €', einheit: '/ Leistung' },
   { leistung: 'Komplett-Service', beschreibung: 'Vollständige Antragsstellung, Prüfung & Korrektur, Einreichung & Nachverfolgung, Telefonbegleitung', preis: '239 €', einheit: '/ Vorgang' },
-  { leistung: 'Anerkennung ausländischer Qualifikationen', beschreibung: 'Vollständige Verfahrensbegleitung, Dokumentenprüfung, Behördenkommunikation', preis: '469 €', einheit: '/ Vorgang' },
+  { leistung: 'Anerkennung ausländ. Qualifikationen', beschreibung: 'Vollständige Verfahrensbegleitung, Dokumentenprüfung, Behördenkommunikation', preis: '469 €', einheit: '/ Vorgang' },
   { leistung: 'Übersetzung', beschreibung: 'Albanisch ↔ Deutsch, beglaubigte Übersetzung, Urkunden & Verträge', preis: '35 €', einheit: '/ Seite' },
   { leistung: 'Übersetzung Express', beschreibung: 'Wie Übersetzung, jedoch mit Expressbearbeitung (+50%)', preis: '52,50 €', einheit: '/ Seite' },
   { leistung: 'Online-Beratung', beschreibung: 'Video oder Telefon, kein Vor-Ort-Termin nötig', preis: '29 €', einheit: '/ Sitzung' },
@@ -14,6 +14,19 @@ const PREISLISTE = [
   { leistung: 'Finanzierungsberatung', beschreibung: 'Alle Finanzierungsarten, Weiterleitung an Allianz Versicherung Mentor Dzemaili, Monheim am Rhein', preis: 'Kostenlos', einheit: '' },
 ]
 
+const styles: Record<string, React.CSSProperties> = {
+  center:      { minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:'#f3f4f6', fontFamily:"'DM Sans',sans-serif" },
+  loginCard:   { background:'#fff', borderRadius:20, padding:'40px 36px', width:'100%', maxWidth:400, boxShadow:'0 20px 60px rgba(0,0,0,0.12)' },
+  loginTitle:  { fontFamily:"'Playfair Display',serif", fontSize:'1.5rem', color:'#0f1f3d', marginBottom:6 },
+  label:       { display:'block', fontSize:'0.82rem', fontWeight:600, color:'#1a2540', marginBottom:6 },
+  input:       { width:'100%', border:'1.5px solid #e5e7eb', borderRadius:10, padding:'12px 14px', fontSize:'0.95rem', fontFamily:"'DM Sans',sans-serif", outline:'none', boxSizing:'border-box' as const, marginBottom:12 },
+  loginBtn:    { width:'100%', background:'#0f1f3d', color:'#c9a84c', border:'none', borderRadius:10, padding:14, fontSize:'1rem', fontWeight:700, cursor:'pointer', fontFamily:"'DM Sans',sans-serif" },
+  error:       { background:'#fef2f2', border:'1px solid #fecaca', borderRadius:8, padding:'10px 14px', color:'#dc2626', fontSize:'0.88rem', marginBottom:12 },
+  header:      { background:'#0f1f3d', padding:'18px 28px', display:'flex', alignItems:'center', gap:20 },
+  headerTitle: { fontFamily:"'Playfair Display',serif", fontSize:'1.3rem', color:'#c9a84c', margin:0 },
+  headerSub:   { color:'rgba(255,255,255,0.45)', fontSize:'0.8rem', marginTop:2 },
+  backLink:    { color:'rgba(255,255,255,0.5)', textDecoration:'none', fontSize:'0.85rem' },
+}
 
 export default function PreisePage() {
   const [authed, setAuthed]       = useState(false)
@@ -37,33 +50,35 @@ export default function PreisePage() {
     setAuthed(true)
   }
 
-  if (checking) return <div style={s.center}><p style={{color:'#6b7280'}}>⏳ Wird geladen...</p></div>
+  if (checking) return (
+    <div style={styles.center}>
+      <p style={{color:'#6b7280'}}>⏳ Wird geladen...</p>
+    </div>
+  )
 
   if (!authed) return (
-    <div style={s.center}>
-      <div style={s.loginCard}>
+    <div style={styles.center}>
+      <div style={styles.loginCard}>
         <a href="/admin" style={{color:'#c9a84c', textDecoration:'none', fontSize:'0.88rem', display:'block', marginBottom:20}}>← Zurück zum Admin</a>
-        <h1 style={s.loginTitle}>🔐 Interne Preisliste</h1>
-        <label style={s.label}>Passwort</label>
-        <input type="password" style={s.input} value={password}
+        <h1 style={styles.loginTitle}>🔐 Interne Preisliste</h1>
+        <label style={styles.label}>Passwort</label>
+        <input type="password" style={styles.input} value={password}
           onChange={e => setPassword(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && login()}
           placeholder="Admin-Passwort" />
-        {authError && <div style={s.error}>{authError}</div>}
-        <button style={s.loginBtn} onClick={login}>Einloggen →</button>
+        {authError && <div style={styles.error}>{authError}</div>}
+        <button style={styles.loginBtn} onClick={login}>Einloggen →</button>
       </div>
     </div>
   )
 
   return (
     <div style={{minHeight:'100vh', background:'#f8fafc', fontFamily:"'DM Sans',sans-serif"}}>
-      <div style={s.header}>
-        <div style={{display:'flex', alignItems:'center', gap:20}}>
-          <a href="/admin" style={{color:'rgba(255,255,255,0.5)', textDecoration:'none', fontSize:'0.85rem'}}>← Admin</a>
-          <div>
-            <h1 style={s.headerTitle}>💶 Interne Preisliste</h1>
-            <p style={s.headerSub}>Nur intern sichtbar – nicht öffentlich auf der Webseite</p>
-          </div>
+      <div style={styles.header}>
+        <a href="/admin" style={styles.backLink}>← Admin</a>
+        <div>
+          <h1 style={styles.headerTitle}>💶 Interne Preisliste</h1>
+          <p style={styles.headerSub}>Nur intern sichtbar – nicht öffentlich auf der Webseite</p>
         </div>
       </div>
 
