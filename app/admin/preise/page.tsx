@@ -14,6 +14,7 @@ const PREISLISTE = [
   { leistung: 'Finanzierungsberatung', beschreibung: 'Alle Finanzierungsarten, Weiterleitung an Allianz Versicherung Mentor Dzemaili, Monheim am Rhein', preis: 'Kostenlos', einheit: '' },
 ]
 
+
 export default function PreisePage() {
   const [authed, setAuthed]       = useState(false)
   const [password, setPassword]   = useState('')
